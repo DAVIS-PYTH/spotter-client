@@ -9,8 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "dotted-map": "^2.2.3",
+    "framer-motion": "^11.0.8",
+    "lucide-react": "^0.344.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.22.2",
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "@nabla/vite-plugin-eslint": "2.0.4",

@@ -10,7 +10,15 @@ export default defineConfig({
   plugins: [react(), eslintPlugin()],
   resolve: {
     alias: {
-      '@': path.resolve('./src'),
+      '@utils': path.resolve(__dirname, 'src/utils'),
+      '@theme': path.resolve(__dirname, 'src/theme'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@assets': path.resolve(__dirname, 'src/assets'),
+      '@src': path.resolve(__dirname, 'src'),
     },
+  },
+  optimizeDeps: {
+    exclude: ['lucide-react'],
   },
 });
