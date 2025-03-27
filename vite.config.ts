@@ -10,6 +10,7 @@ export default defineConfig({
   plugins: [react(), eslintPlugin()],
   resolve: {
     alias: {
+      '@contexts': path.resolve(__dirname, 'src/contexts'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@theme': path.resolve(__dirname, 'src/theme'),
       '@pages': path.resolve(__dirname, 'src/pages'),

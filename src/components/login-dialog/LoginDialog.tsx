@@ -1,6 +1,6 @@
 import React from 'react';
 import { RiGoogleFill } from '@remixicon/react';
-
+import { useNavigate } from 'react-router-dom';
 import GradientButton from '@components/gradient-button';
 
 import {
@@ -18,6 +18,8 @@ interface LoginDialogProps {
 }
 
 const LoginDialog: React.FC<LoginDialogProps> = ({ trigger }) => {
+  const navigate = useNavigate();
+
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
@@ -49,7 +51,11 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ trigger }) => {
               />
             </div>
           </div>
-          <GradientButton type="button" className="w-full">
+          <GradientButton
+            type="button"
+            className="w-full"
+            onClick={() => navigate('/onboarding')}
+          >
             Continue with Email
           </GradientButton>
         </form>
