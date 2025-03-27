@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Truck } from 'lucide-react';
 
 import UsMap from '@components/us-map';
 import GradientButton from '@components/gradient-button';
+import LoginDialog from '@components/login-dialog';
+import Logo from '@assets/icons/Logo';
 
 const LandingPage: React.FC = () => {
   return (
@@ -13,13 +13,15 @@ const LandingPage: React.FC = () => {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">
-              <Truck className="h-8 w-8 text-blue-400" />
+              <Logo />
               <span className="ml-2 text-xl font-bold">Spotter</span>
             </div>
             <div>
-              <Link to="/get-started">
-                <GradientButton variant="variant">Get Started</GradientButton>
-              </Link>
+              <LoginDialog
+                trigger={
+                  <GradientButton variant="variant">Get Started</GradientButton>
+                }
+              />
             </div>
           </div>
         </div>
