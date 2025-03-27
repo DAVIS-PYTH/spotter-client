@@ -22,6 +22,8 @@
 
     "baseUrl": "./",
     "paths": {
+      "@routes": ["src/constants/pages.ts"],
+      "@constants/*": ["src/constants/*"],
       "@contexts/*": ["src/contexts/*"],
       "@utils/*": ["src/utils/*"],
       "@theme/*": ["src/theme/*"],

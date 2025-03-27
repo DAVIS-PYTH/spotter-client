@@ -2,30 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 import UsMap from '@components/us-map';
-import GradientButton from '@components/gradient-button';
-import LoginDialog from '@components/login-dialog';
-import Logo from '@assets/icons/Logo';
+import Navbar from '@components/navbar';
 
 const LandingPage: React.FC = () => {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[rgba(0,0,0,0.43)] text-white">
-      <nav className="sticky top-0 z-50 border-b border-white/10 bg-black/10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center">
-              <Logo />
-              <span className="ml-2 text-xl font-bold">Spotter</span>
-            </div>
-            <div>
-              <LoginDialog
-                trigger={
-                  <GradientButton variant="variant">Get Started</GradientButton>
-                }
-              />
-            </div>
-          </div>
-        </div>
-      </nav>
+    <div className="relative min-h-screen overflow-hidden bg-black/50 text-white">
+      <Navbar />
 
       <div className="relative">
         <div className="mx-auto max-w-7xl px-4 pb-12 pt-20 text-center sm:px-6 lg:px-8">

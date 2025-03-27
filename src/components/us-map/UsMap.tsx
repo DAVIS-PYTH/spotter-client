@@ -8,9 +8,14 @@ interface MapProps {
     end: { lat: number; lng: number; label?: string };
   }>;
   lineColor?: string;
+  withLines?: boolean;
 }
 
-const UsMap: React.FC<MapProps> = ({ dots = [], lineColor = '#0ea5e9' }) => {
+const UsMap: React.FC<MapProps> = ({
+  dots = [],
+  lineColor = '#0ea5e9',
+  withLines = true,
+}) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const map = new DottedMap({
     height: 100,
@@ -57,112 +62,121 @@ const UsMap: React.FC<MapProps> = ({ dots = [], lineColor = '#0ea5e9' }) => {
         alt="US map"
         draggable={false}
       />
-      <svg
-        ref={svgRef}
-        viewBox="0 0 800 400"
-        className="pointer-events-none absolute inset-0 h-full w-full select-none"
-      >
-        {dots.map((dot, i) => {
-          const startPoint = projectPoint(dot.start.lat, dot.start.lng);
-          const endPoint = projectPoint(dot.end.lat, dot.end.lng);
-          return (
-            <g key={`path-group-${i}`}>
-              <motion.path
-                d={createCurvedPath(startPoint, endPoint)}
-                fill="none"
-                stroke="url(#path-gradient)"
-                strokeWidth="1"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{
-                  duration: 3,
-                  delay: 0.5 * i,
-                  ease: 'easeOut',
-                }}
-                key={`start-upper-${i}`}
-              />
-            </g>
-          );
-        })}
 
-        <defs>
-          <linearGradient id="path-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="white" stopOpacity="0" />
-            <stop offset="5%" stopColor={lineColor} stopOpacity="1" />
-            <stop offset="95%" stopColor={lineColor} stopOpacity="1" />
-            <stop offset="100%" stopColor="white" stopOpacity="0" />
-          </linearGradient>
-        </defs>
+      {withLines && (
+        <svg
+          ref={svgRef}
+          viewBox="0 0 800 400"
+          className="pointer-events-none absolute inset-0 h-full w-full select-none"
+        >
+          {dots.map((dot, i) => {
+            const startPoint = projectPoint(dot.start.lat, dot.start.lng);
+            const endPoint = projectPoint(dot.end.lat, dot.end.lng);
+            return (
+              <g key={`path-group-${i}`}>
+                <motion.path
+                  d={createCurvedPath(startPoint, endPoint)}
+                  fill="none"
+                  stroke="url(#path-gradient)"
+                  strokeWidth="1"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{
+                    duration: 3,
+                    delay: 0.5 * i,
+                    ease: 'easeOut',
+                  }}
+                  key={`start-upper-${i}`}
+                />
+              </g>
+            );
+          })}
 
-        {dots.map((dot, i) => (
-          <g key={`points-group-${i}`}>
-            <g key={`start-${i}`}>
-              <circle
-                cx={projectPoint(dot.start.lat, dot.start.lng).x}
-                cy={projectPoint(dot.start.lat, dot.start.lng).y}
-                r="2"
-                fill={lineColor}
-              />
-              <circle
-                cx={projectPoint(dot.start.lat, dot.start.lng).x}
-                cy={projectPoint(dot.start.lat, dot.start.lng).y}
-                r="2"
-                fill={lineColor}
-                opacity="0.5"
-              >
-                <animate
-                  attributeName="r"
-                  from="2"
-                  to="8"
-                  dur="1.5s"
-                  begin="0s"
-                  repeatCount="indefinite"
+          <defs>
+            <linearGradient
+              id="path-gradient"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stopColor="white" stopOpacity="0" />
+              <stop offset="5%" stopColor={lineColor} stopOpacity="1" />
+              <stop offset="95%" stopColor={lineColor} stopOpacity="1" />
+              <stop offset="100%" stopColor="white" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+
+          {dots.map((dot, i) => (
+            <g key={`points-group-${i}`}>
+              <g key={`start-${i}`}>
+                <circle
+                  cx={projectPoint(dot.start.lat, dot.start.lng).x}
+                  cy={projectPoint(dot.start.lat, dot.start.lng).y}
+                  r="2"
+                  fill={lineColor}
                 />
-                <animate
-                  attributeName="opacity"
-                  from="0.5"
-                  to="0"
-                  dur="1.5s"
-                  begin="0s"
-                  repeatCount="indefinite"
+                <circle
+                  cx={projectPoint(dot.start.lat, dot.start.lng).x}
+                  cy={projectPoint(dot.start.lat, dot.start.lng).y}
+                  r="2"
+                  fill={lineColor}
+                  opacity="0.5"
+                >
+                  <animate
+                    attributeName="r"
+                    from="2"
+                    to="8"
+                    dur="1.5s"
+                    begin="0s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    from="0.5"
+                    to="0"
+                    dur="1.5s"
+                    begin="0s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              </g>
+              <g key={`end-${i}`}>
+                <circle
+                  cx={projectPoint(dot.end.lat, dot.end.lng).x}
+                  cy={projectPoint(dot.end.lat, dot.end.lng).y}
+                  r="2"
+                  fill={lineColor}
                 />
-              </circle>
+                <circle
+                  cx={projectPoint(dot.end.lat, dot.end.lng).x}
+                  cy={projectPoint(dot.end.lat, dot.end.lng).y}
+                  r="2"
+                  fill={lineColor}
+                  opacity="0.5"
+                >
+                  <animate
+                    attributeName="r"
+                    from="2"
+                    to="8"
+                    dur="1.5s"
+                    begin="0s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    from="0.5"
+                    to="0"
+                    dur="1.5s"
+                    begin="0s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              </g>
             </g>
-            <g key={`end-${i}`}>
-              <circle
-                cx={projectPoint(dot.end.lat, dot.end.lng).x}
-                cy={projectPoint(dot.end.lat, dot.end.lng).y}
-                r="2"
-                fill={lineColor}
-              />
-              <circle
-                cx={projectPoint(dot.end.lat, dot.end.lng).x}
-                cy={projectPoint(dot.end.lat, dot.end.lng).y}
-                r="2"
-                fill={lineColor}
-                opacity="0.5"
-              >
-                <animate
-                  attributeName="r"
-                  from="2"
-                  to="8"
-                  dur="1.5s"
-                  begin="0s"
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="opacity"
-                  from="0.5"
-                  to="0"
-                  dur="1.5s"
-                  begin="0s"
-                  repeatCount="indefinite"
-                />
-              </circle>
-            </g>
-          </g>
-        ))}
-      </svg>
+          ))}
+        </svg>
+      )}
     </div>
   );
 };

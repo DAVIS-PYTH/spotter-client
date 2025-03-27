@@ -10,6 +10,8 @@ export default defineConfig({
   plugins: [react(), eslintPlugin()],
   resolve: {
     alias: {
+      '@routes': path.resolve(__dirname, 'src/constants/pages.ts'),
+      '@constants': path.resolve(__dirname, 'src/constants'),
       '@contexts': path.resolve(__dirname, 'src/contexts'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@theme': path.resolve(__dirname, 'src/theme'),
